@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class LocationService {
@@ -30,9 +31,11 @@ class LocationService {
     return _permissionStatus == PermissionStatus.granted;
   }
 
-  static Future<void> getCurrentLocation() async {
+  static Future<LatLng?> getCurrentLocation() async {
     if (_isServiceEnabled && _permissionStatus == PermissionStatus.granted) {
       currentLocation = await _location.getLocation();
+      return LatLng(currentLocation!.latitude!, currentLocation!.longitude!);
     }
+    return null;
   }
 }
